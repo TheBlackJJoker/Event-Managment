@@ -1,6 +1,5 @@
-# Docker with PHP8.2, Composer, MySQL8, Redis, Ngnix
-Ready to work containers for Laravel, solving the problem with permission to newly created files by the artisan console, when working with WSL2.
-
+# Simple Appliction with REST API in Laravel 10
+A simple application using REST API for handling events with the owner (user) and attendees. An example of using the REST API.
 ## 
 
 Run docker containers
@@ -15,13 +14,13 @@ docker exec -it -u 1000 php /bin/bash
 
 ## Install Laravel and move to main folder
 ```` bash
-composer create-project --prefer-dist laravel/laravel Laravel 
+composer install
 ````
 ```` bash
-mv -v ./Laravel/* ./Laravel/.* ./
+php artisan migrate
 ````
 ```` bash
-rm -rf Laravel
+php artisan db:seed 
 ````
 
 ## Fix storage permission
@@ -29,7 +28,7 @@ rm -rf Laravel
 chmod 777 -R storage
 ````
 
-## Database connection
+## Database local connection
     MYSQL_HOST = mysql <docker mysql container name>
     MYSQL_DATABASE = database
     MYSQL_USER = admin
