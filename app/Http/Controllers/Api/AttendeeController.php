@@ -18,6 +18,8 @@ class AttendeeController extends Controller
     public function __construct()
     {
         $this->middleware('auth:sanctum')->except('index', 'show', 'update');
+        $this->authorizeResource(Attendee::class, 'attendee');
+
     }
 
     public function index(Event $event)
@@ -36,7 +38,7 @@ class AttendeeController extends Controller
     {
         $attendee = $this->loadRelationships(
             $event->attendees()->create([
-                'user_id' => 1
+                'user_id' => $request->user()->id
             ])
         );
 
@@ -58,7 +60,7 @@ class AttendeeController extends Controller
 
     public function destroy(Event $event, Attendee $attendee)
     {
-        $this->authorize('delete-attendee', [$event, $attendee]);
+//        $this->authorize('delete-attendee', [$event, $attendee]);
 
         $attendee->delete();
 
